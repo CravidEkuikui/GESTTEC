@@ -3,6 +3,11 @@
 <Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="Barra_de_menu">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="13" style="0"/>
+        </Property>
+      </Properties>
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="Menu_sistema">
           <Properties>
@@ -17,6 +22,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="sub_menu_logout">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icons/door_out.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Logout"/>
               </Properties>
               <Events>
@@ -27,6 +35,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="Menu_tabelas">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icons/table.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Tabelas"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
@@ -35,11 +46,17 @@
           <SubComponents>
             <Menu class="javax.swing.JMenu" name="Tabela_user">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icons/user.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Usu&#xe1;rios"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="Sub_menu_criar_user">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/icons/user_add.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Criar Usu&#xe1;rio"/>
                   </Properties>
                   <Events>
@@ -48,6 +65,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="Sub_menu_consultar_user">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/icons/user_edit.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Consultar Usu&#xe1;rios"/>
                   </Properties>
                   <Events>
@@ -58,11 +78,17 @@
             </Menu>
             <Menu class="javax.swing.JMenu" name="Tabela_clientes">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icons/group.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Clientes"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="Sub_menu_criar_cliente">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/icons/group_add.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Criar Cliente"/>
                   </Properties>
                   <Events>
@@ -71,6 +97,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="Sub_menu_consultar_cliente">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/icons/group_edit.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Consultar Clientes"/>
                   </Properties>
                   <Events>
@@ -81,11 +110,17 @@
             </Menu>
             <Menu class="javax.swing.JMenu" name="Tabela_tarefas">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icons/brick.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Tarefas"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="Sub_menu_criar_tarefa">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/icons/brick_add.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Criar Tarefa"/>
                   </Properties>
                   <Events>
@@ -94,6 +129,9 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="Sub_menu_consultar_tarefas">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/icons/brick_edit.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Consultar Tarefas"/>
                   </Properties>
                   <Events>
@@ -106,6 +144,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="Menu_tarefas">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icons/bricks.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Tarefas"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
@@ -114,6 +155,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="Sub_menu_atribuir_tarefa">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icons/brick_link.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Atribuir Tarefa"/>
               </Properties>
               <Events>
@@ -122,6 +166,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="Sub_menu_concluir_tarefa">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icons/brick_go.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Concluir Tarefa"/>
               </Properties>
               <Events>
@@ -132,6 +179,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="Menu_relatorios">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icons/report.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
@@ -140,6 +190,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="Sub_menu_relatorio_tarefas">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icons/report_go.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Relat&#xf3;rios de Tarefas"/>
               </Properties>
             </MenuItem>
@@ -147,6 +200,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="Menu_sobre">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icons/information.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Sobre"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
@@ -155,6 +211,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="Sub_menu_ajuda">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icons/help.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Ajuda"/>
               </Properties>
               <Events>
@@ -163,6 +222,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="Sub_menu_acerca">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icons/information.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Acerca"/>
               </Properties>
               <Events>
@@ -231,15 +293,32 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="869" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="578" max="32767" attributes="0"/>
+                  <Component id="jLabel1" min="-2" pref="281" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="577" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="284" max="32767" attributes="0"/>
+                  <Component id="jLabel1" min="-2" pref="282" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icons/Cravid4.png"/>
+            </Property>
+          </Properties>
+        </Component>
+      </SubComponents>
     </Container>
   </SubComponents>
 </Form>

@@ -5,6 +5,12 @@
  */
 package Views;
 
+import Model.dao.ClientesDAO;
+import Model.bean.Clientes;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author Cravid Ekuikui
@@ -16,6 +22,52 @@ public class Tela_consulta_cliente extends javax.swing.JInternalFrame {
      */
     public Tela_consulta_cliente() {
         initComponents();
+        DefaultTableModel modelo = (DefaultTableModel) Tabela_clientes.getModel();
+        Tabela_clientes.setRowSorter(new TableRowSorter(modelo));
+
+        readJTable();
+    }
+
+    public void readJTable() {
+
+        DefaultTableModel modelo = (DefaultTableModel) Tabela_clientes.getModel();
+        modelo.setNumRows(0);
+        ClientesDAO cliDAO = new ClientesDAO();
+
+        for (Clientes cli : cliDAO.consultaClientes()) {
+            modelo.addRow(new Object[]{
+                cli.getCodCliente(),
+                cli.getNomeCliente(),
+                cli.getNifCliente(),
+                cli.getTelefone(),
+                cli.getCasa(),
+                cli.getRua(),
+                cli.getBairro(),
+                cli.getMunicipio()
+            });
+        }
+
+    }
+
+    public void readJTable_forDesc(String desc) {
+
+        DefaultTableModel modelo = (DefaultTableModel) Tabela_clientes.getModel();
+        modelo.setNumRows(0);
+        ClientesDAO clidao = new ClientesDAO();
+
+        for (Clientes cli : clidao.consultaClientes_por_descricao(desc)) {
+            modelo.addRow(new Object[]{
+                cli.getCodCliente(),
+                cli.getNomeCliente(),
+                cli.getNifCliente(),
+                cli.getTelefone(),
+                cli.getCasa(),
+                cli.getRua(),
+                cli.getBairro(),
+                cli.getMunicipio()
+            });
+        }
+
     }
 
     /**
@@ -34,6 +86,22 @@ public class Tela_consulta_cliente extends javax.swing.JInternalFrame {
         Tabela_clientes = new javax.swing.JTable();
         Botao_editar_cliente = new javax.swing.JButton();
         Botao_apagar_cliente = new javax.swing.JButton();
+        Label_nome_cliente = new javax.swing.JLabel();
+        nomecliente = new javax.swing.JTextField();
+        nifcliente = new javax.swing.JTextField();
+        Label_nif_cliente = new javax.swing.JLabel();
+        Label_telefone = new javax.swing.JLabel();
+        telefone = new javax.swing.JTextField();
+        Label_casa = new javax.swing.JLabel();
+        Label_rua = new javax.swing.JLabel();
+        casacliente = new javax.swing.JTextField();
+        ruacliente = new javax.swing.JTextField();
+        municipio = new javax.swing.JTextField();
+        Label_municipio = new javax.swing.JLabel();
+        Label_bairro = new javax.swing.JLabel();
+        bairro = new javax.swing.JTextField();
+        Label_nome_cliente1 = new javax.swing.JLabel();
+        codigocliente = new javax.swing.JTextField();
 
         setClosable(true);
         setMaximizable(true);
@@ -42,7 +110,13 @@ public class Tela_consulta_cliente extends javax.swing.JInternalFrame {
         Painel_consulta_cliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         Botao_procurar_cliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Botao_procurar_cliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/zoom.png"))); // NOI18N
         Botao_procurar_cliente.setText("Procurar");
+        Botao_procurar_cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Botao_procurar_clienteActionPerformed(evt);
+            }
+        });
 
         Campo_busca_cliente.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
@@ -53,13 +127,83 @@ public class Tela_consulta_cliente extends javax.swing.JInternalFrame {
             new String [] {
                 "Código", "Nome do Cliente", "NIF", "Telefone", "Casa Nº", "Rua", "Bairro", "Município"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Tabela_clientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tabela_clientesMouseClicked(evt);
+            }
+        });
+        Tabela_clientes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                Tabela_clientesKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(Tabela_clientes);
 
-        Botao_editar_cliente.setText("Editar");
+        Botao_editar_cliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/disk_multiple.png"))); // NOI18N
+        Botao_editar_cliente.setText("Atualizar");
+        Botao_editar_cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Botao_editar_clienteActionPerformed(evt);
+            }
+        });
 
         Botao_apagar_cliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Botao_apagar_cliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete.png"))); // NOI18N
         Botao_apagar_cliente.setText("Apagar");
+        Botao_apagar_cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Botao_apagar_clienteActionPerformed(evt);
+            }
+        });
+
+        Label_nome_cliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Label_nome_cliente.setText("Nome do Cliente");
+
+        nomecliente.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+
+        nifcliente.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+
+        Label_nif_cliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Label_nif_cliente.setText("NIF Cliente");
+
+        Label_telefone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Label_telefone.setText("Telefone");
+
+        telefone.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+
+        Label_casa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Label_casa.setText("Casa Nº");
+
+        Label_rua.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Label_rua.setText("Rua");
+
+        casacliente.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+
+        ruacliente.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+
+        municipio.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+
+        Label_municipio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Label_municipio.setText("Município");
+
+        Label_bairro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Label_bairro.setText("Bairro");
+
+        bairro.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+
+        Label_nome_cliente1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Label_nome_cliente1.setText("Codigo");
+
+        codigocliente.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
         javax.swing.GroupLayout Painel_consulta_clienteLayout = new javax.swing.GroupLayout(Painel_consulta_cliente);
         Painel_consulta_cliente.setLayout(Painel_consulta_clienteLayout);
@@ -70,31 +214,94 @@ public class Tela_consulta_cliente extends javax.swing.JInternalFrame {
                 .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_consulta_clienteLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_consulta_clienteLayout.createSequentialGroup()
-                                .addComponent(Botao_procurar_cliente)
-                                .addGap(18, 18, 18)
-                                .addComponent(Campo_busca_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(25, 25, 25))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_consulta_clienteLayout.createSequentialGroup()
-                                .addComponent(Botao_editar_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(Botao_apagar_cliente)
-                                .addGap(43, 43, 43))))
+                        .addComponent(Botao_editar_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Botao_apagar_cliente)
+                        .addGap(43, 43, 43))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_consulta_clienteLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_consulta_clienteLayout.createSequentialGroup()
+                        .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Painel_consulta_clienteLayout.createSequentialGroup()
+                                .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nifcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Label_nif_cliente)
+                                    .addComponent(telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Label_telefone))
+                                .addGap(35, 35, 35)
+                                .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(casacliente, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_consulta_clienteLayout.createSequentialGroup()
+                                        .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(Label_municipio)
+                                                .addComponent(municipio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(Label_rua))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                                        .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(Label_casa)
+                                            .addComponent(ruacliente, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(Label_bairro))
+                                        .addGap(49, 49, 49))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_consulta_clienteLayout.createSequentialGroup()
+                                .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Label_nome_cliente1)
+                                    .addComponent(codigocliente, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Label_nome_cliente)
+                                    .addComponent(nomecliente, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(43, 43, 43)
+                        .addComponent(Botao_procurar_cliente)
+                        .addGap(18, 18, 18)
+                        .addComponent(Campo_busca_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25))))
         );
         Painel_consulta_clienteLayout.setVerticalGroup(
             Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Painel_consulta_clienteLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Botao_procurar_cliente)
-                    .addComponent(Campo_busca_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Painel_consulta_clienteLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Botao_procurar_cliente)
+                            .addComponent(Campo_busca_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(Painel_consulta_clienteLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Label_nome_cliente)
+                            .addComponent(Label_nome_cliente1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nomecliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(codigocliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Label_nif_cliente)
+                            .addComponent(Label_casa)
+                            .addComponent(Label_rua))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nifcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(casacliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ruacliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Label_telefone)
+                            .addGroup(Painel_consulta_clienteLayout.createSequentialGroup()
+                                .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(Label_municipio)
+                                    .addComponent(Label_bairro))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(municipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(bairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(Painel_consulta_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Botao_editar_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Botao_apagar_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -114,12 +321,95 @@ public class Tela_consulta_cliente extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Painel_consulta_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Painel_consulta_cliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Botao_procurar_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Botao_procurar_clienteActionPerformed
+        // TODO add your handling code here:
+        readJTable_forDesc(Campo_busca_cliente.getText());
+    }//GEN-LAST:event_Botao_procurar_clienteActionPerformed
+
+    private void Tabela_clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabela_clientesMouseClicked
+        // TODO add your handling code here:
+        if (Tabela_clientes.getSelectedRow() != -1) {
+
+            codigocliente.setText(Tabela_clientes.getValueAt(Tabela_clientes.getSelectedRow(), 0).toString());
+            nomecliente.setText(Tabela_clientes.getValueAt(Tabela_clientes.getSelectedRow(), 1).toString());
+            nifcliente.setText(Tabela_clientes.getValueAt(Tabela_clientes.getSelectedRow(), 2).toString());
+            telefone.setText(Tabela_clientes.getValueAt(Tabela_clientes.getSelectedRow(), 3).toString());
+            casacliente.setText(Tabela_clientes.getValueAt(Tabela_clientes.getSelectedRow(), 4).toString());
+            ruacliente.setText(Tabela_clientes.getValueAt(Tabela_clientes.getSelectedRow(), 5).toString());
+            bairro.setText(Tabela_clientes.getValueAt(Tabela_clientes.getSelectedRow(), 6).toString());
+            municipio.setText(Tabela_clientes.getValueAt(Tabela_clientes.getSelectedRow(), 7).toString());
+
+        }
+    }//GEN-LAST:event_Tabela_clientesMouseClicked
+
+    private void Botao_apagar_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Botao_apagar_clienteActionPerformed
+        // TODO add your handling code here:
+        if (Tabela_clientes.getSelectedRow() != -1) {
+
+            Clientes cli = new Clientes();
+            ClientesDAO cliDAO = new ClientesDAO();
+
+            cli.setCodCliente((int) Tabela_clientes.getValueAt(Tabela_clientes.getSelectedRow(), 0));
+            cliDAO.ExcluirCliente(cli);
+
+            readJTable();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha");
+        }
+    }//GEN-LAST:event_Botao_apagar_clienteActionPerformed
+
+    private void Tabela_clientesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Tabela_clientesKeyReleased
+        // TODO add your handling code here:
+        if (Tabela_clientes.getSelectedRow() != -1) {
+
+            codigocliente.setText(Tabela_clientes.getValueAt(Tabela_clientes.getSelectedRow(), 0).toString());
+            nomecliente.setText(Tabela_clientes.getValueAt(Tabela_clientes.getSelectedRow(), 1).toString());
+            nifcliente.setText(Tabela_clientes.getValueAt(Tabela_clientes.getSelectedRow(), 2).toString());
+            telefone.setText(Tabela_clientes.getValueAt(Tabela_clientes.getSelectedRow(), 3).toString());
+            casacliente.setText(Tabela_clientes.getValueAt(Tabela_clientes.getSelectedRow(), 4).toString());
+            ruacliente.setText(Tabela_clientes.getValueAt(Tabela_clientes.getSelectedRow(), 5).toString());
+            bairro.setText(Tabela_clientes.getValueAt(Tabela_clientes.getSelectedRow(), 6).toString());
+            municipio.setText(Tabela_clientes.getValueAt(Tabela_clientes.getSelectedRow(), 7).toString());
+
+        }
+    }//GEN-LAST:event_Tabela_clientesKeyReleased
+
+    private void Botao_editar_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Botao_editar_clienteActionPerformed
+        // TODO add your handling code here:
+        if (Tabela_clientes.getSelectedRow() != -1) {
+
+            Clientes cli = new Clientes();
+            ClientesDAO cliDAO = new ClientesDAO();
+            cli.setCodCliente((int) Tabela_clientes.getValueAt(Tabela_clientes.getSelectedRow(), 0));
+            cli.setNomeCliente(nomecliente.getText());
+            cli.setNifCliente(nifcliente.getText());
+            cli.setTelefone(Integer.parseInt(telefone.getText()));
+            cli.setCasa(casacliente.getText());
+            cli.setRua(ruacliente.getText());
+            cli.setBairro(bairro.getText());
+            cli.setMunicipio(municipio.getText());
+
+            cliDAO.EditarCliente(cli);
+
+            codigocliente.setText("");
+            nomecliente.setText("");
+            nifcliente.setText("");
+            telefone.setText("");
+            casacliente.setText("");
+            ruacliente.setText("");
+            bairro.setText("");
+            municipio.setText("");
+
+            readJTable();
+        }
+    }//GEN-LAST:event_Botao_editar_clienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -127,8 +417,24 @@ public class Tela_consulta_cliente extends javax.swing.JInternalFrame {
     private javax.swing.JButton Botao_editar_cliente;
     private javax.swing.JButton Botao_procurar_cliente;
     private javax.swing.JTextField Campo_busca_cliente;
+    private javax.swing.JLabel Label_bairro;
+    private javax.swing.JLabel Label_casa;
+    private javax.swing.JLabel Label_municipio;
+    private javax.swing.JLabel Label_nif_cliente;
+    private javax.swing.JLabel Label_nome_cliente;
+    private javax.swing.JLabel Label_nome_cliente1;
+    private javax.swing.JLabel Label_rua;
+    private javax.swing.JLabel Label_telefone;
     private javax.swing.JPanel Painel_consulta_cliente;
     private javax.swing.JTable Tabela_clientes;
+    private javax.swing.JTextField bairro;
+    private javax.swing.JTextField casacliente;
+    private javax.swing.JTextField codigocliente;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField municipio;
+    private javax.swing.JTextField nifcliente;
+    private javax.swing.JTextField nomecliente;
+    private javax.swing.JTextField ruacliente;
+    private javax.swing.JTextField telefone;
     // End of variables declaration//GEN-END:variables
 }

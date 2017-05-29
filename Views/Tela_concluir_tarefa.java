@@ -5,6 +5,9 @@
  */
 package Views;
 
+import Model.bean.Tarefa;
+import Model.dao.TarefaDAO;
+
 /**
  *
  * @author Cravid Ekuikui
@@ -16,6 +19,11 @@ public class Tela_concluir_tarefa extends javax.swing.JInternalFrame {
      */
     public Tela_concluir_tarefa() {
         initComponents();
+        TarefaDAO task = new TarefaDAO();
+
+        for (Tarefa t : task.consultaTarefas_nao_atribuidas()) {
+            descricao.addItem(t);
+        }
     }
 
     /**
@@ -59,20 +67,32 @@ public class Tela_concluir_tarefa extends javax.swing.JInternalFrame {
         Label_selecionar_estado.setText("Selecione o Estado Final");
 
         descricao.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        descricao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione a Tarefa" }));
+        descricao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione a Tarefa", " " }));
 
         estado.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Indique o estado" }));
+        estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Indique o estado", " ", "Aberto", "Pendente", "Cancelado", "Concluído" }));
 
         observacoes.setColumns(20);
         observacoes.setRows(5);
         jScrollPane1.setViewportView(observacoes);
 
         Botao_concluir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        Botao_concluir.setText("Salvar");
+        Botao_concluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/accept.png"))); // NOI18N
+        Botao_concluir.setText("Concluir");
+        Botao_concluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Botao_concluirActionPerformed(evt);
+            }
+        });
 
         Botao_cancelar_conclusao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Botao_cancelar_conclusao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancel.png"))); // NOI18N
         Botao_cancelar_conclusao.setText("Cancelar");
+        Botao_cancelar_conclusao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Botao_cancelar_conclusaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout Painel_conclusaoLayout = new javax.swing.GroupLayout(Painel_conclusao);
         Painel_conclusao.setLayout(Painel_conclusaoLayout);
@@ -91,16 +111,16 @@ public class Tela_concluir_tarefa extends javax.swing.JInternalFrame {
                                 .addGroup(Painel_conclusaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(Label_observacoes)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(72, 72, 72)
+                                .addGap(48, 48, 48)
                                 .addGroup(Painel_conclusaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(Painel_conclusaoLayout.createSequentialGroup()
-                                        .addComponent(Botao_concluir, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Botao_cancelar_conclusao))
                                     .addGroup(Painel_conclusaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(Label_selecionar_estado)))))
-                        .addContainerGap(32, Short.MAX_VALUE))))
+                                        .addComponent(Label_selecionar_estado))
+                                    .addGroup(Painel_conclusaoLayout.createSequentialGroup()
+                                        .addComponent(Botao_concluir)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(Botao_cancelar_conclusao)))))
+                        .addContainerGap(12, Short.MAX_VALUE))))
         );
         Painel_conclusaoLayout.setVerticalGroup(
             Painel_conclusaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,7 +129,7 @@ public class Tela_concluir_tarefa extends javax.swing.JInternalFrame {
                 .addComponent(Label_selecionar_tarefa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(descricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(Painel_conclusaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Label_observacoes)
                     .addComponent(Label_selecionar_estado))
@@ -147,6 +167,32 @@ public class Tela_concluir_tarefa extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void Botao_cancelar_conclusaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Botao_cancelar_conclusaoActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_Botao_cancelar_conclusaoActionPerformed
+
+    private void Botao_concluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Botao_concluirActionPerformed
+        // TODO add your handling code here:
+        Tarefa Task = new Tarefa();
+        TarefaDAO Task_dao = new TarefaDAO();
+
+        Tarefa cbtask = (Tarefa) descricao.getSelectedItem();
+        int codtarefa = cbtask.getCodTarefa();
+        String E = (String) estado.getSelectedItem();
+
+        Task.setEstado(E);
+        Task.setObservacoes(observacoes.getText());
+        Task.setCodTarefa(codtarefa);
+
+        Task_dao.ConcluirTarefa(Task);
+
+        descricao.setSelectedIndex(0);
+        observacoes.setText("");
+        estado.setSelectedIndex(0);
+
+    }//GEN-LAST:event_Botao_concluirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Botao_cancelar_conclusao;
@@ -155,7 +201,7 @@ public class Tela_concluir_tarefa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel Label_selecionar_estado;
     private javax.swing.JLabel Label_selecionar_tarefa;
     private javax.swing.JPanel Painel_conclusao;
-    private javax.swing.JComboBox<String> descricao;
+    private javax.swing.JComboBox<Object> descricao;
     private javax.swing.JComboBox<String> estado;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel4;

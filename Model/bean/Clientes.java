@@ -13,7 +13,7 @@ public class Clientes {
     
    private int CodCliente;
    private String NomeCliente;
-   private int NifCliente;
+   private String NifCliente;
    private int Telefone;
    private String Casa;
    private String Rua;
@@ -27,8 +27,8 @@ public class Clientes {
     public String getNomeCliente() {return NomeCliente;}
     public void setNomeCliente(String NomeCliente) {this.NomeCliente = NomeCliente;}
 
-    public int getNifCliente() {return NifCliente;}
-    public void setNifCliente(int NifCliente) {this.NifCliente = NifCliente;}
+    public String getNifCliente() {return NifCliente;}
+    public void setNifCliente(String NifCliente) {this.NifCliente = NifCliente;}
 
     public int getTelefone() {return Telefone;}
     public void setTelefone(int Telefone) {this.Telefone = Telefone;}
@@ -44,6 +44,11 @@ public class Clientes {
 
     public String getMunicipio() {return Municipio;}
     public void setMunicipio(String Municipio) {this.Municipio = Municipio;}
+
+    @Override
+    public String toString() {
+        return getNomeCliente(); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
    

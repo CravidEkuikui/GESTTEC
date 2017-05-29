@@ -31,6 +31,12 @@ public class Usuario {
 
     public String getNiveUser() {return NiveUser;}
     public void setNiveUser(String NiveUser) {this.NiveUser = NiveUser;}
+
+    @Override
+    public String toString() {
+        return getNomeUser(); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
     
     

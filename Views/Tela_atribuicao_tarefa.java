@@ -5,6 +5,11 @@
  */
 package Views;
 
+import Model.bean.Tarefa;
+import Model.bean.Usuario;
+import Model.dao.TarefaDAO;
+import Model.dao.UsuarioDAO;
+
 /**
  *
  * @author Cravid Ekuikui
@@ -16,6 +21,16 @@ public class Tela_atribuicao_tarefa extends javax.swing.JInternalFrame {
      */
     public Tela_atribuicao_tarefa() {
         initComponents();
+        UsuarioDAO user = new UsuarioDAO();
+        TarefaDAO task = new TarefaDAO();
+
+        for (Usuario u : user.consultaUsuario()) {
+            nomeusuario.addItem(u);
+           
+        }
+        for (Tarefa t : task.consultaTarefas_nao_atribuidas()) {
+            descricao.addItem(t);
+        }
     }
 
     /**
@@ -64,20 +79,31 @@ public class Tela_atribuicao_tarefa extends javax.swing.JInternalFrame {
         Label_indique_data.setText("Indique a data para o término");
 
         descricao.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        descricao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha uma tarefa" }));
+        descricao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         nomeusuario.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        nomeusuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o técnico" }));
+        nomeusuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         datafinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
-        datafinal.setText("Ano-mês-dia");
         datafinal.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
         Botao_atribuir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Botao_atribuir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/accept.png"))); // NOI18N
         Botao_atribuir.setText("Atribuir");
+        Botao_atribuir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Botao_atribuirActionPerformed(evt);
+            }
+        });
 
         Botao_cancelar_atribuicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Botao_cancelar_atribuicao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancel.png"))); // NOI18N
         Botao_cancelar_atribuicao.setText("Cancelar");
+        Botao_cancelar_atribuicao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Botao_cancelar_atribuicaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout Painel_atribuicaoLayout = new javax.swing.GroupLayout(Painel_atribuicao);
         Painel_atribuicao.setLayout(Painel_atribuicaoLayout);
@@ -86,17 +112,14 @@ public class Tela_atribuicao_tarefa extends javax.swing.JInternalFrame {
             .addGroup(Painel_atribuicaoLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(Painel_atribuicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Painel_atribuicaoLayout.createSequentialGroup()
-                        .addComponent(Label_seleciona_tarefa)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_atribuicaoLayout.createSequentialGroup()
                         .addGroup(Painel_atribuicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(Painel_atribuicaoLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(Botao_atribuir))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Painel_atribuicaoLayout.createSequentialGroup()
-                                .addComponent(nomeusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
+                            .addGroup(Painel_atribuicaoLayout.createSequentialGroup()
+                                .addComponent(nomeusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
                                 .addComponent(datafinal, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Botao_cancelar_atribuicao)
@@ -106,9 +129,15 @@ public class Tela_atribuicao_tarefa extends javax.swing.JInternalFrame {
                             .addComponent(descricao, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Painel_atribuicaoLayout.createSequentialGroup()
                                 .addComponent(Label_selecione_tecnico)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(36, 36, 36))
+                    .addGroup(Painel_atribuicaoLayout.createSequentialGroup()
+                        .addGroup(Painel_atribuicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Label_seleciona_tarefa)
+                            .addGroup(Painel_atribuicaoLayout.createSequentialGroup()
+                                .addGap(272, 272, 272)
                                 .addComponent(Label_indique_data)))
-                        .addGap(36, 36, 36))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         Painel_atribuicaoLayout.setVerticalGroup(
             Painel_atribuicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,8 +156,8 @@ public class Tela_atribuicao_tarefa extends javax.swing.JInternalFrame {
                     .addComponent(datafinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(Painel_atribuicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Botao_atribuir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Botao_cancelar_atribuicao, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Botao_atribuir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Botao_cancelar_atribuicao, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26))
         );
 
@@ -156,6 +185,34 @@ public class Tela_atribuicao_tarefa extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Painel_atribuicaoKeyTyped
 
+    private void Botao_atribuirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Botao_atribuirActionPerformed
+        // TODO add your handling code here:
+        Tarefa Task = new Tarefa();
+        TarefaDAO Task_dao = new TarefaDAO();
+
+        Tarefa cbtask = (Tarefa) descricao.getSelectedItem();
+        int codtarefa = cbtask.getCodTarefa();
+        Usuario user = (Usuario) nomeusuario.getSelectedItem();
+        int U = user.getCodUser();
+
+        Task.setDataFinal(datafinal.getText());
+        Task.setUsuario(U);
+        Task.setCodTarefa(codtarefa);
+
+        Task_dao.AtribuirTarefa(Task);
+
+        descricao.setSelectedIndex(0);
+        nomeusuario.setSelectedIndex(0);
+        datafinal.setText("");
+
+
+    }//GEN-LAST:event_Botao_atribuirActionPerformed
+
+    private void Botao_cancelar_atribuicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Botao_cancelar_atribuicaoActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_Botao_cancelar_atribuicaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Botao_atribuir;
@@ -165,9 +222,9 @@ public class Tela_atribuicao_tarefa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel Label_selecione_tecnico;
     private javax.swing.JPanel Painel_atribuicao;
     private javax.swing.JFormattedTextField datafinal;
-    private javax.swing.JComboBox<String> descricao;
+    private javax.swing.JComboBox<Object> descricao;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JComboBox<String> nomeusuario;
+    private javax.swing.JComboBox<Object> nomeusuario;
     // End of variables declaration//GEN-END:variables
 }

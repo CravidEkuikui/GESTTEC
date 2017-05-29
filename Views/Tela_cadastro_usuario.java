@@ -7,7 +7,6 @@ package Views;
 
 import Model.bean.Usuario;
 import Model.dao.UsuarioDAO;
-import java.awt.ComponentOrientation;
 
 /**
  *
@@ -23,7 +22,6 @@ public class Tela_cadastro_usuario extends javax.swing.JInternalFrame {
 
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,6 +63,7 @@ public class Tela_cadastro_usuario extends javax.swing.JInternalFrame {
         Label_nivel_user.setText("Nível");
 
         Botao_salvar_user.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Botao_salvar_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/disk.png"))); // NOI18N
         Botao_salvar_user.setText("Salvar");
         Botao_salvar_user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,6 +72,7 @@ public class Tela_cadastro_usuario extends javax.swing.JInternalFrame {
         });
 
         Botao_cancelar_user.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Botao_cancelar_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancel.png"))); // NOI18N
         Botao_cancelar_user.setText("Cancelar");
         Botao_cancelar_user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,7 +118,7 @@ public class Tela_cadastro_usuario extends javax.swing.JInternalFrame {
                         .addContainerGap(87, Short.MAX_VALUE))
                     .addGroup(Painel_cadastro_userLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(Botao_salvar_user, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Botao_salvar_user)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Botao_cancelar_user)
                         .addGap(37, 37, 37))))
@@ -142,7 +142,7 @@ public class Tela_cadastro_usuario extends javax.swing.JInternalFrame {
                 .addComponent(Label_email_user)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(emailuser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(Painel_cadastro_userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Botao_cancelar_user, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Botao_salvar_user, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -178,18 +178,18 @@ public class Tela_cadastro_usuario extends javax.swing.JInternalFrame {
         Usuario user = new Usuario();
         UsuarioDAO user_dao = new UsuarioDAO();
         String b = (String) niveluser.getSelectedItem();
-        
+
         user.setNomeUser(nomeuser.getText());
         user.setSenhaUser(senhauser.getText());
         user.setEmailUser(emailuser.getText());
         user.setNiveUser(b);
-       
+
         user_dao.criarUsuario(user);
-        
+
         nomeuser.setText("");
         senhauser.setText("");
         emailuser.setText("");
-        
+
     }//GEN-LAST:event_Botao_salvar_userActionPerformed
 
     private void nomeuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeuserActionPerformed

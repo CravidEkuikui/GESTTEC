@@ -29,7 +29,7 @@ public class Tela_consulta_usuario extends javax.swing.JInternalFrame {
     }
 
     public void readJTable() {
-        
+
         DefaultTableModel modelo = (DefaultTableModel) Tabela_user.getModel();
         modelo.setNumRows(0);
         UsuarioDAO udao = new UsuarioDAO();
@@ -44,8 +44,9 @@ public class Tela_consulta_usuario extends javax.swing.JInternalFrame {
         }
 
     }
+
     public void readJTable_forDesc(String desc) {
-        
+
         DefaultTableModel modelo = (DefaultTableModel) Tabela_user.getModel();
         modelo.setNumRows(0);
         UsuarioDAO udao = new UsuarioDAO();
@@ -54,12 +55,14 @@ public class Tela_consulta_usuario extends javax.swing.JInternalFrame {
             modelo.addRow(new Object[]{
                 u.getCodUser(),
                 u.getNomeUser(),
+                u.getSenhaUser(),
                 u.getEmailUser(),
                 u.getNiveUser()
             });
         }
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,6 +73,7 @@ public class Tela_consulta_usuario extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jTextField1 = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
         Painel_de_consulta = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabela_user = new javax.swing.JTable();
@@ -77,8 +81,20 @@ public class Tela_consulta_usuario extends javax.swing.JInternalFrame {
         Campo_busca_user = new javax.swing.JTextField();
         Botao_editar_user = new javax.swing.JButton();
         Botao_apagar_user = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        senhauser = new javax.swing.JPasswordField();
+        coduser = new javax.swing.JTextField();
+        nomeuser = new javax.swing.JTextField();
+        emailuser = new javax.swing.JTextField();
+        niveluser = new javax.swing.JComboBox<>();
 
         jTextField1.setText("jTextField1");
+
+        jTextField6.setText("jTextField6");
 
         setClosable(true);
         setMaximizable(true);
@@ -93,12 +109,31 @@ public class Tela_consulta_usuario extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Código do Usuário", "Nome de Usuário", "Contacto", "Nível"
+                "Código do Usuário", "Nome de Usuário", "Email", "Nível"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Tabela_user.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tabela_userMouseClicked(evt);
+            }
+        });
+        Tabela_user.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                Tabela_userKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(Tabela_user);
 
         Botao_busca_user.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Botao_busca_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/zoom.png"))); // NOI18N
         Botao_busca_user.setText("Procurar");
         Botao_busca_user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,7 +149,8 @@ public class Tela_consulta_usuario extends javax.swing.JInternalFrame {
         });
 
         Botao_editar_user.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        Botao_editar_user.setText("Editar");
+        Botao_editar_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/disk_multiple.png"))); // NOI18N
+        Botao_editar_user.setText("Atualizar");
         Botao_editar_user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Botao_editar_userActionPerformed(evt);
@@ -122,10 +158,47 @@ public class Tela_consulta_usuario extends javax.swing.JInternalFrame {
         });
 
         Botao_apagar_user.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Botao_apagar_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete.png"))); // NOI18N
         Botao_apagar_user.setText("Apagar");
         Botao_apagar_user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Botao_apagar_userActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Código");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Nome");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Senha");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Email");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Nível");
+
+        senhauser.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        senhauser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                senhauserActionPerformed(evt);
+            }
+        });
+
+        coduser.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+
+        nomeuser.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+
+        emailuser.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+
+        niveluser.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        niveluser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o Nível", " ", "Administrador", "Secretária", "Técnico" }));
+        niveluser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                niveluserActionPerformed(evt);
             }
         });
 
@@ -137,21 +210,44 @@ public class Tela_consulta_usuario extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(Painel_de_consultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_de_consultaLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_de_consultaLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(Botao_editar_user, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Botao_apagar_user)
+                        .addGap(32, 32, 32))))
+            .addGroup(Painel_de_consultaLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(Painel_de_consultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Painel_de_consultaLayout.createSequentialGroup()
                         .addGroup(Painel_de_consultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_de_consultaLayout.createSequentialGroup()
-                                .addComponent(Botao_busca_user)
-                                .addGap(18, 18, 18)
-                                .addComponent(Campo_busca_user, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(22, 22, 22))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_de_consultaLayout.createSequentialGroup()
-                                .addComponent(Botao_editar_user, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(Botao_apagar_user)
-                                .addGap(32, 32, 32))))))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(coduser, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Botao_busca_user)
+                        .addGap(18, 18, 18)
+                        .addComponent(Campo_busca_user, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_de_consultaLayout.createSequentialGroup()
+                        .addGroup(Painel_de_consultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(senhauser, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(71, 71, 71)
+                        .addGroup(Painel_de_consultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(emailuser, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                        .addGroup(Painel_de_consultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(niveluser, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37))
+                    .addGroup(Painel_de_consultaLayout.createSequentialGroup()
+                        .addGroup(Painel_de_consultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(nomeuser, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         Painel_de_consultaLayout.setVerticalGroup(
             Painel_de_consultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,9 +255,27 @@ public class Tela_consulta_usuario extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(Painel_de_consultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Botao_busca_user)
-                    .addComponent(Campo_busca_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                    .addComponent(Campo_busca_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(coduser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nomeuser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addGroup(Painel_de_consultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(Painel_de_consultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(emailuser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(Painel_de_consultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(senhauser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(niveluser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(Painel_de_consultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Botao_editar_user, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -195,20 +309,43 @@ public class Tela_consulta_usuario extends javax.swing.JInternalFrame {
 
     private void Botao_editar_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Botao_editar_userActionPerformed
         // TODO add your handling code here:
+        if (Tabela_user.getSelectedRow() != -1) {
+            Usuario user = new Usuario();
+            UsuarioDAO userDAO = new UsuarioDAO();
+            String b = (String) niveluser.getSelectedItem();
+
+            user.setCodUser((int) Tabela_user.getValueAt(Tabela_user.getSelectedRow(), 0));
+            user.setNomeUser(nomeuser.getText());
+            user.setSenhaUser(senhauser.getText());
+            user.setEmailUser(emailuser.getText());
+            user.setNiveUser(b);
+
+            userDAO.EditarUsuario(user);
+
+            coduser.setText("");
+            nomeuser.setText("");
+            senhauser.setText("");
+            emailuser.setText("");
+            niveluser.setSelectedIndex(0);
+
+            readJTable();
+        }
+
+
     }//GEN-LAST:event_Botao_editar_userActionPerformed
 
     private void Botao_apagar_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Botao_apagar_userActionPerformed
         // TODO add your handling code here:
-        if(Tabela_user.getSelectedRow() != -1){
-         
+        if (Tabela_user.getSelectedRow() != -1) {
+
             Usuario user = new Usuario();
             UsuarioDAO userDAO = new UsuarioDAO();
-            
+
             user.setCodUser((int) Tabela_user.getValueAt(Tabela_user.getSelectedRow(), 0));
             userDAO.Excluir(user);
-            
+
             readJTable();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Selecione uma linha");
         }
     }//GEN-LAST:event_Botao_apagar_userActionPerformed
@@ -218,6 +355,39 @@ public class Tela_consulta_usuario extends javax.swing.JInternalFrame {
         readJTable_forDesc(Campo_busca_user.getText());
     }//GEN-LAST:event_Botao_busca_userActionPerformed
 
+    private void Tabela_userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabela_userMouseClicked
+        // TODO add your handling code here:
+        if (Tabela_user.getSelectedRow() != -1) {
+
+            coduser.setText(Tabela_user.getValueAt(Tabela_user.getSelectedRow(), 0).toString());
+            nomeuser.setText(Tabela_user.getValueAt(Tabela_user.getSelectedRow(), 1).toString());
+            emailuser.setText(Tabela_user.getValueAt(Tabela_user.getSelectedRow(), 2).toString());
+            niveluser.setSelectedItem(Tabela_user.getValueAt(Tabela_user.getSelectedRow(), 3).toString());
+
+        }
+
+
+    }//GEN-LAST:event_Tabela_userMouseClicked
+
+    private void senhauserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senhauserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_senhauserActionPerformed
+
+    private void Tabela_userKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Tabela_userKeyReleased
+        // TODO add your handling code here:
+        if (Tabela_user.getSelectedRow() != -1) {
+
+            coduser.setText(Tabela_user.getValueAt(Tabela_user.getSelectedRow(), 0).toString());
+            nomeuser.setText(Tabela_user.getValueAt(Tabela_user.getSelectedRow(), 1).toString());
+            emailuser.setText(Tabela_user.getValueAt(Tabela_user.getSelectedRow(), 2).toString());
+            niveluser.setSelectedItem(Tabela_user.getValueAt(Tabela_user.getSelectedRow(), 3).toString());
+
+        }
+    }//GEN-LAST:event_Tabela_userKeyReleased
+    private void niveluserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_niveluserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_niveluserActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Botao_apagar_user;
@@ -226,7 +396,18 @@ public class Tela_consulta_usuario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField Campo_busca_user;
     private javax.swing.JPanel Painel_de_consulta;
     private javax.swing.JTable Tabela_user;
+    private javax.swing.JTextField coduser;
+    private javax.swing.JTextField emailuser;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JComboBox<String> niveluser;
+    private javax.swing.JTextField nomeuser;
+    private javax.swing.JPasswordField senhauser;
     // End of variables declaration//GEN-END:variables
 }

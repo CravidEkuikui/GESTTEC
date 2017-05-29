@@ -5,6 +5,13 @@
  */
 package Views;
 
+import Model.bean.Clientes;
+import Model.bean.Tarefa;
+import Model.bean.Usuario;
+import Model.dao.ClientesDAO;
+import Model.dao.TarefaDAO;
+import Model.dao.UsuarioDAO;
+
 /**
  *
  * @author Cravid Ekuikui
@@ -16,6 +23,16 @@ public class Tela_cadastro_tarefas extends javax.swing.JInternalFrame {
      */
     public Tela_cadastro_tarefas() {
         initComponents();
+        UsuarioDAO user = new UsuarioDAO();
+        ClientesDAO cli = new ClientesDAO();
+
+        for (Usuario u : user.consultaUsuario()) {
+            nomeuser.addItem(u);
+        }
+        for (Clientes c : cli.consultaClientes()) {
+            nomecliente.addItem(c);
+        }
+
     }
 
     /**
@@ -86,10 +103,10 @@ public class Tela_cadastro_tarefas extends javax.swing.JInternalFrame {
         datafinal.setText("Ano-Mês.Dia");
 
         nomecliente.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        nomecliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o Cliente" }));
+        nomecliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         nomeuser.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        nomeuser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o Técnico" }));
+        nomeuser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         estado.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aberto", "Pendente", "Cancelado", "Concluído" }));
@@ -99,10 +116,22 @@ public class Tela_cadastro_tarefas extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(observacoes);
 
         Botao_salvar_tarefa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Botao_salvar_tarefa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/disk.png"))); // NOI18N
         Botao_salvar_tarefa.setText("Salvar");
+        Botao_salvar_tarefa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Botao_salvar_tarefaActionPerformed(evt);
+            }
+        });
 
         Botao_cancelar_tarefa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Botao_cancelar_tarefa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancel.png"))); // NOI18N
         Botao_cancelar_tarefa.setText("Cancelar");
+        Botao_cancelar_tarefa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Botao_cancelar_tarefaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout Painel_cadastro_tarefasLayout = new javax.swing.GroupLayout(Painel_cadastro_tarefas);
         Painel_cadastro_tarefas.setLayout(Painel_cadastro_tarefasLayout);
@@ -112,41 +141,50 @@ public class Tela_cadastro_tarefas extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Painel_cadastro_tarefasLayout.createSequentialGroup()
-                        .addComponent(descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Label_descricao)
+                            .addComponent(descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(Painel_cadastro_tarefasLayout.createSequentialGroup()
-                        .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_cadastro_tarefasLayout.createSequentialGroup()
+                        .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(Painel_cadastro_tarefasLayout.createSequentialGroup()
                                 .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Label_descricao)
-                                    .addComponent(Label_observacoes)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(Painel_cadastro_tarefasLayout.createSequentialGroup()
-                                .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(Label_datainicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(datainicial))
-                                .addGap(44, 44, 44)
+                                    .addGroup(Painel_cadastro_tarefasLayout.createSequentialGroup()
+                                        .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(Label_datainicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(datainicial))
+                                        .addGap(44, 44, 44)
+                                        .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(Label_datafinal)
+                                            .addComponent(datafinal, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Label_observacoes))
                                 .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Label_datafinal)
-                                    .addComponent(datafinal, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nomecliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Label_cliente))
-                                .addGap(59, 59, 59)))
-                        .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Label_tecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nomeuser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(Label_estado)
-                                .addComponent(estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(Painel_cadastro_tarefasLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(Label_estado))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(Painel_cadastro_tarefasLayout.createSequentialGroup()
+                                        .addGap(8, 8, 8)
+                                        .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(Label_cliente)
+                                            .addComponent(nomecliente, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(Painel_cadastro_tarefasLayout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(Label_tecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(121, 121, 121))
+                                            .addGroup(Painel_cadastro_tarefasLayout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(nomeuser, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                             .addGroup(Painel_cadastro_tarefasLayout.createSequentialGroup()
-                                .addComponent(Botao_salvar_tarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(Botao_salvar_tarefa)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(Botao_cancelar_tarefa)))
-                        .addGap(69, 69, 69))))
+                        .addGap(47, 47, 47))))
         );
         Painel_cadastro_tarefasLayout.setVerticalGroup(
             Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,19 +206,22 @@ public class Tela_cadastro_tarefas extends javax.swing.JInternalFrame {
                     .addComponent(nomecliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nomeuser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Label_observacoes)
-                    .addComponent(Label_estado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(Painel_cadastro_tarefasLayout.createSequentialGroup()
+                .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Painel_cadastro_tarefasLayout.createSequentialGroup()
+                        .addComponent(Label_estado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Botao_salvar_tarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Botao_cancelar_tarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(83, 83, 83))
+                        .addGap(158, 158, 158))
+                    .addGroup(Painel_cadastro_tarefasLayout.createSequentialGroup()
+                        .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(Painel_cadastro_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(Botao_salvar_tarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Botao_cancelar_tarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(Painel_cadastro_tarefasLayout.createSequentialGroup()
+                                .addComponent(Label_observacoes)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(83, 83, 83))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -189,7 +230,7 @@ public class Tela_cadastro_tarefas extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Painel_cadastro_tarefas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Painel_cadastro_tarefas, javax.swing.GroupLayout.PREFERRED_SIZE, 748, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -206,6 +247,37 @@ public class Tela_cadastro_tarefas extends javax.swing.JInternalFrame {
     private void datainicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datainicialActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_datainicialActionPerformed
+
+    private void Botao_salvar_tarefaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Botao_salvar_tarefaActionPerformed
+        // TODO add your handling code here:
+        Tarefa Task = new Tarefa();
+        TarefaDAO Task_dao = new TarefaDAO();
+        Clientes cli = (Clientes) nomecliente.getSelectedItem();
+        int C = cli.getCodCliente();
+        Usuario user = (Usuario) nomeuser.getSelectedItem();
+        int U = user.getCodUser();
+        String E = (String) estado.getSelectedItem();
+
+        Task.setDescricao(descricao.getText());
+        Task.setDataInicial(datainicial.getText());
+        Task.setDataFinal(datafinal.getText());
+        Task.setCliente(C);
+        Task.setUsuario(U);
+        Task.setEstado(E);
+        Task.setObservacoes(observacoes.getText());
+
+        Task_dao.criarTarefa(Task);
+
+        descricao.setText("");
+        observacoes.setText("");
+
+
+    }//GEN-LAST:event_Botao_salvar_tarefaActionPerformed
+
+    private void Botao_cancelar_tarefaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Botao_cancelar_tarefaActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_Botao_cancelar_tarefaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -224,8 +296,8 @@ public class Tela_cadastro_tarefas extends javax.swing.JInternalFrame {
     private javax.swing.JTextField descricao;
     private javax.swing.JComboBox<String> estado;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox<String> nomecliente;
-    private javax.swing.JComboBox<String> nomeuser;
+    private javax.swing.JComboBox<Object> nomecliente;
+    private javax.swing.JComboBox<Object> nomeuser;
     private javax.swing.JTextArea observacoes;
     // End of variables declaration//GEN-END:variables
 }

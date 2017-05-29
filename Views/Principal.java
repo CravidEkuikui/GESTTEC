@@ -5,7 +5,6 @@
  */
 package Views;
 
-import java.awt.Component;
 import javax.swing.JDesktopPane;
 
 /**
@@ -31,6 +30,7 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         Area_de_trabalho = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
         Barra_de_menu = new javax.swing.JMenuBar();
         Menu_sistema = new javax.swing.JMenu();
         sub_menu_logout = new javax.swing.JMenuItem();
@@ -60,21 +60,34 @@ public class Principal extends javax.swing.JFrame {
         Area_de_trabalho.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Area_de_trabalho.setName("Area_de_Trabalho"); // NOI18N
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Cravid4.png"))); // NOI18N
+
+        Area_de_trabalho.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout Area_de_trabalhoLayout = new javax.swing.GroupLayout(Area_de_trabalho);
         Area_de_trabalho.setLayout(Area_de_trabalhoLayout);
         Area_de_trabalhoLayout.setHorizontalGroup(
             Area_de_trabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 869, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Area_de_trabalhoLayout.createSequentialGroup()
+                .addContainerGap(578, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         Area_de_trabalhoLayout.setVerticalGroup(
             Area_de_trabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 577, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Area_de_trabalhoLayout.createSequentialGroup()
+                .addContainerGap(284, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
+
+        Barra_de_menu.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
 
         Menu_sistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/page.png"))); // NOI18N
         Menu_sistema.setText("Sistema");
         Menu_sistema.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        sub_menu_logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/door_out.png"))); // NOI18N
         sub_menu_logout.setText("Logout");
         sub_menu_logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,11 +98,14 @@ public class Principal extends javax.swing.JFrame {
 
         Barra_de_menu.add(Menu_sistema);
 
+        Menu_tabelas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/table.png"))); // NOI18N
         Menu_tabelas.setText("Tabelas");
         Menu_tabelas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        Tabela_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.png"))); // NOI18N
         Tabela_user.setText("Usuários");
 
+        Sub_menu_criar_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_add.png"))); // NOI18N
         Sub_menu_criar_user.setText("Criar Usuário");
         Sub_menu_criar_user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,6 +114,7 @@ public class Principal extends javax.swing.JFrame {
         });
         Tabela_user.add(Sub_menu_criar_user);
 
+        Sub_menu_consultar_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_edit.png"))); // NOI18N
         Sub_menu_consultar_user.setText("Consultar Usuários");
         Sub_menu_consultar_user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,8 +125,10 @@ public class Principal extends javax.swing.JFrame {
 
         Menu_tabelas.add(Tabela_user);
 
+        Tabela_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/group.png"))); // NOI18N
         Tabela_clientes.setText("Clientes");
 
+        Sub_menu_criar_cliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/group_add.png"))); // NOI18N
         Sub_menu_criar_cliente.setText("Criar Cliente");
         Sub_menu_criar_cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,6 +137,7 @@ public class Principal extends javax.swing.JFrame {
         });
         Tabela_clientes.add(Sub_menu_criar_cliente);
 
+        Sub_menu_consultar_cliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/group_edit.png"))); // NOI18N
         Sub_menu_consultar_cliente.setText("Consultar Clientes");
         Sub_menu_consultar_cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,8 +148,10 @@ public class Principal extends javax.swing.JFrame {
 
         Menu_tabelas.add(Tabela_clientes);
 
+        Tabela_tarefas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/brick.png"))); // NOI18N
         Tabela_tarefas.setText("Tarefas");
 
+        Sub_menu_criar_tarefa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/brick_add.png"))); // NOI18N
         Sub_menu_criar_tarefa.setText("Criar Tarefa");
         Sub_menu_criar_tarefa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,6 +160,7 @@ public class Principal extends javax.swing.JFrame {
         });
         Tabela_tarefas.add(Sub_menu_criar_tarefa);
 
+        Sub_menu_consultar_tarefas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/brick_edit.png"))); // NOI18N
         Sub_menu_consultar_tarefas.setText("Consultar Tarefas");
         Sub_menu_consultar_tarefas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,9 +173,11 @@ public class Principal extends javax.swing.JFrame {
 
         Barra_de_menu.add(Menu_tabelas);
 
+        Menu_tarefas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/bricks.png"))); // NOI18N
         Menu_tarefas.setText("Tarefas");
         Menu_tarefas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        Sub_menu_atribuir_tarefa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/brick_link.png"))); // NOI18N
         Sub_menu_atribuir_tarefa.setText("Atribuir Tarefa");
         Sub_menu_atribuir_tarefa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,6 +186,7 @@ public class Principal extends javax.swing.JFrame {
         });
         Menu_tarefas.add(Sub_menu_atribuir_tarefa);
 
+        Sub_menu_concluir_tarefa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/brick_go.png"))); // NOI18N
         Sub_menu_concluir_tarefa.setText("Concluir Tarefa");
         Sub_menu_concluir_tarefa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,17 +197,21 @@ public class Principal extends javax.swing.JFrame {
 
         Barra_de_menu.add(Menu_tarefas);
 
+        Menu_relatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/report.png"))); // NOI18N
         Menu_relatorios.setText("Relatórios");
         Menu_relatorios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        Sub_menu_relatorio_tarefas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/report_go.png"))); // NOI18N
         Sub_menu_relatorio_tarefas.setText("Relatórios de Tarefas");
         Menu_relatorios.add(Sub_menu_relatorio_tarefas);
 
         Barra_de_menu.add(Menu_relatorios);
 
+        Menu_sobre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/information.png"))); // NOI18N
         Menu_sobre.setText("Sobre");
         Menu_sobre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        Sub_menu_ajuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/help.png"))); // NOI18N
         Sub_menu_ajuda.setText("Ajuda");
         Sub_menu_ajuda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,6 +220,7 @@ public class Principal extends javax.swing.JFrame {
         });
         Menu_sobre.add(Sub_menu_ajuda);
 
+        Sub_menu_acerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/information.png"))); // NOI18N
         Sub_menu_acerca.setText("Acerca");
         Sub_menu_acerca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,10 +255,13 @@ public class Principal extends javax.swing.JFrame {
 
     private void sub_menu_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sub_menu_logoutActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        
     }//GEN-LAST:event_sub_menu_logoutActionPerformed
 
     private void Sub_menu_ajudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Sub_menu_ajudaActionPerformed
         // TODO add your handling code here:
+       
     }//GEN-LAST:event_Sub_menu_ajudaActionPerformed
 
     private void Sub_menu_criar_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Sub_menu_criar_userActionPerformed
@@ -323,10 +357,8 @@ public class Principal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Principal().setVisible(true);
         });
     }
 
@@ -356,10 +388,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu Tabela_clientes;
     private javax.swing.JMenu Tabela_tarefas;
     private javax.swing.JMenu Tabela_user;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem sub_menu_logout;
     // End of variables declaration//GEN-END:variables
 
-    void getArea_de_trabalho(Component add) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 }

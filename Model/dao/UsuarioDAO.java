@@ -25,6 +25,34 @@ public class UsuarioDAO {
 
     public Iterable<Usuario> read;
     
+    public boolean login(String emailuser, String senhauser){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        boolean verificar = false;
+       
+        
+        try {
+            stmt = con.prepareStatement("select * from usuario where emailuser = ? and senhauser = ?");
+            stmt.setString(1, emailuser);
+            stmt.setString(2, senhauser);
+            
+            rs = stmt.executeQuery();
+            if(rs.next()){
+                verificar = true;
+         
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        
+        return verificar;
+        
+    }
+    
     public void criarUsuario(Usuario user){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
