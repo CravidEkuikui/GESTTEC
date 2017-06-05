@@ -21,7 +21,7 @@ public class Tela_concluir_tarefa extends javax.swing.JInternalFrame {
         initComponents();
         TarefaDAO task = new TarefaDAO();
 
-        for (Tarefa t : task.consultaTarefas_nao_atribuidas()) {
+        for (Tarefa t : task.consultaTarefas_por_concluir()) {
             descricao.addItem(t);
         }
     }

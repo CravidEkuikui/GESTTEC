@@ -35,8 +35,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="Painel_consulta_tarefas" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="Painel_consulta_tarefas" min="-2" pref="612" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -65,10 +65,8 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="Label_descricao" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="descricao" min="-2" pref="400" max="-2" attributes="0"/>
-                              <Component id="Label_observacoes" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="codigotarefa" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                               <Component id="jLabel1" alignment="0" min="-2" pref="48" max="-2" attributes="0"/>
-                              <Component id="jScrollPane2" alignment="0" min="-2" pref="224" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
@@ -88,17 +86,20 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="nomecliente" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
-                                      <Component id="Label_cliente" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="Label_tecnico" min="-2" pref="66" max="-2" attributes="0"/>
-                                      <Component id="nomeuser" min="-2" pref="196" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="Label_cliente" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="146" max="-2" attributes="0"/>
+                                          <Component id="Label_observacoes" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="nomecliente" min="-2" pref="162" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jScrollPane2" min="-2" pref="224" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -143,7 +144,7 @@
                       <Component id="Label_datafinal" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="Label_estado" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="Label_cliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Label_tecnico" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Label_observacoes" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -152,21 +153,17 @@
                           <Component id="datafinal" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="estado" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="nomecliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="nomeuser" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="jScrollPane2" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="Label_observacoes" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" min="-2" pref="82" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="302" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="301" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="Botao_editar_tarefa" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="Botao_apagar_tarefa" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -339,29 +336,6 @@
             <Property name="text" type="java.lang.String" value="Cliente"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="Label_tecnico">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="14" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="T&#xe9;cnico"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="nomeuser">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="13" style="0"/>
-            </Property>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
-                <StringItem index="0" value=" "/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
-          </AuxValues>
-        </Component>
         <Component class="javax.swing.JComboBox" name="nomecliente">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -418,13 +392,14 @@
               <Font name="Tahoma" size="13" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="6">
+              <StringArray count="7">
                 <StringItem index="0" value="Selecione o estado"/>
                 <StringItem index="1" value=" "/>
                 <StringItem index="2" value="Aberto"/>
                 <StringItem index="3" value="Pendente"/>
                 <StringItem index="4" value="Cancelado"/>
-                <StringItem index="5" value="Conclu&#xed;do"/>
+                <StringItem index="5" value="Atribuido"/>
+                <StringItem index="6" value="Conclu&#xed;do"/>
               </StringArray>
             </Property>
           </Properties>

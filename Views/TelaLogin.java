@@ -69,6 +69,11 @@ public class TelaLogin extends javax.swing.JFrame {
         });
 
         camposenha.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        camposenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                camposenhaKeyPressed(evt);
+            }
+        });
 
         imagemlogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/login.jpg"))); // NOI18N
         imagemlogin.setText("jLabel1");
@@ -145,6 +150,11 @@ public class TelaLogin extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_botaoentrarActionPerformed
+
+    private void camposenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_camposenhaKeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_camposenhaKeyPressed
 
     /**
      * @param args the command line arguments

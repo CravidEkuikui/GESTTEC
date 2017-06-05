@@ -5,6 +5,10 @@
  */
 package Views;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
 
 /**
@@ -203,6 +207,11 @@ public class Principal extends javax.swing.JFrame {
 
         Sub_menu_relatorio_tarefas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/report_go.png"))); // NOI18N
         Sub_menu_relatorio_tarefas.setText("Relatórios de Tarefas");
+        Sub_menu_relatorio_tarefas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Sub_menu_relatorio_tarefasActionPerformed(evt);
+            }
+        });
         Menu_relatorios.add(Sub_menu_relatorio_tarefas);
 
         Barra_de_menu.add(Menu_relatorios);
@@ -260,8 +269,14 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_sub_menu_logoutActionPerformed
 
     private void Sub_menu_ajudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Sub_menu_ajudaActionPerformed
-        // TODO add your handling code here:
-       
+        try {
+            // TODO add your handling code here:
+            java.awt.Desktop.getDesktop().browse( new java.net.URI( "file:///C:/xampp/htdocs/ClubeVideoLocadora/GESTTEC/src/Views/Pagina_ajuda.html" ) );
+        } catch (IOException | URISyntaxException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }//GEN-LAST:event_Sub_menu_ajudaActionPerformed
 
     private void Sub_menu_criar_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Sub_menu_criar_userActionPerformed
@@ -328,6 +343,13 @@ public class Principal extends javax.swing.JFrame {
         Area_de_trabalho.add(Telaconcluir);
         Telaconcluir.setVisible(true);
     }//GEN-LAST:event_Sub_menu_concluir_tarefaActionPerformed
+
+    private void Sub_menu_relatorio_tarefasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Sub_menu_relatorio_tarefasActionPerformed
+        // TODO add your handling code here:
+        Tela_relatorios relatorios = new Tela_relatorios();
+        Area_de_trabalho.add(relatorios);
+        relatorios.setVisible(true);
+    }//GEN-LAST:event_Sub_menu_relatorio_tarefasActionPerformed
 
     /**
      * @param args the command line arguments

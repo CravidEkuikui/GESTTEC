@@ -7,7 +7,6 @@ package Views;
 
 import Model.bean.Clientes;
 import Model.bean.Tarefa;
-import Model.bean.Usuario;
 import Model.dao.ClientesDAO;
 import Model.dao.TarefaDAO;
 import Model.dao.UsuarioDAO;
@@ -32,9 +31,9 @@ public class Tela_consulta_tarefas extends javax.swing.JInternalFrame {
         UsuarioDAO user = new UsuarioDAO();
         ClientesDAO cli = new ClientesDAO();
         
-        for (Usuario u: user.consultaUsuario()){
-            nomeuser.addItem(u);      
-        }
+//        for (Usuario u: user.consultaUsuario()){
+//            nomeuser.addItem(u);      
+//        }
         for (Clientes c: cli.consultaClientes()){
             nomecliente.addItem(c);      
         }
@@ -110,8 +109,6 @@ public class Tela_consulta_tarefas extends javax.swing.JInternalFrame {
         Label_datainicio = new javax.swing.JLabel();
         Label_datafinal = new javax.swing.JLabel();
         Label_cliente = new javax.swing.JLabel();
-        Label_tecnico = new javax.swing.JLabel();
-        nomeuser = new javax.swing.JComboBox<>();
         nomecliente = new javax.swing.JComboBox<>();
         datafinal = new javax.swing.JFormattedTextField();
         datainicial = new javax.swing.JFormattedTextField();
@@ -205,12 +202,6 @@ public class Tela_consulta_tarefas extends javax.swing.JInternalFrame {
         Label_cliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Label_cliente.setText("Cliente");
 
-        Label_tecnico.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Label_tecnico.setText("Técnico");
-
-        nomeuser.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        nomeuser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-
         nomecliente.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         nomecliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
@@ -232,7 +223,7 @@ public class Tela_consulta_tarefas extends javax.swing.JInternalFrame {
         Label_estado.setText("Estado");
 
         estado.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o estado", " ", "Aberto", "Pendente", "Cancelado", "Concluído" }));
+        estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o estado", " ", "Aberto", "Pendente", "Cancelado", "Atribuido", "Concluído" }));
 
         observacoes.setColumns(10);
         observacoes.setRows(3);
@@ -264,10 +255,8 @@ public class Tela_consulta_tarefas extends javax.swing.JInternalFrame {
                         .addGroup(Painel_consulta_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Label_descricao)
                             .addComponent(descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Label_observacoes)
                             .addComponent(codigotarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(Painel_consulta_tarefasLayout.createSequentialGroup()
                                 .addGroup(Painel_consulta_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(Painel_consulta_tarefasLayout.createSequentialGroup()
@@ -284,13 +273,15 @@ public class Tela_consulta_tarefas extends javax.swing.JInternalFrame {
                                         .addComponent(Label_estado)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(Painel_consulta_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nomecliente, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Label_cliente))
-                                .addGap(18, 18, 18)
-                                .addGroup(Painel_consulta_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Label_tecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nomeuser, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addGroup(Painel_consulta_tarefasLayout.createSequentialGroup()
+                                        .addComponent(Label_cliente)
+                                        .addGap(146, 146, 146)
+                                        .addComponent(Label_observacoes))
+                                    .addGroup(Painel_consulta_tarefasLayout.createSequentialGroup()
+                                        .addComponent(nomecliente, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 11, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(Painel_consulta_tarefasLayout.createSequentialGroup()
                 .addContainerGap(600, Short.MAX_VALUE)
@@ -326,26 +317,22 @@ public class Tela_consulta_tarefas extends javax.swing.JInternalFrame {
                     .addComponent(Label_datafinal)
                     .addComponent(Label_estado)
                     .addComponent(Label_cliente)
-                    .addComponent(Label_tecnico))
+                    .addComponent(Label_observacoes))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Painel_consulta_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(datainicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(Painel_consulta_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(datafinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(nomecliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(nomeuser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Label_observacoes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nomecliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(Painel_consulta_tarefasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Botao_editar_tarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Botao_apagar_tarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22))
+                .addGap(70, 70, 70))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -361,8 +348,8 @@ public class Tela_consulta_tarefas extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Painel_consulta_tarefas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(Painel_consulta_tarefas, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -375,8 +362,8 @@ public class Tela_consulta_tarefas extends javax.swing.JInternalFrame {
             TarefaDAO taskDAO = new TarefaDAO();
             Clientes cli = (Clientes) nomecliente.getSelectedItem();
             int C = cli.getCodCliente();
-            Usuario user = (Usuario) nomeuser.getSelectedItem();
-            int U = user.getCodUser();
+          //  Usuario user = (Usuario) nomeuser.getSelectedItem();
+        //    int U = user.getCodUser();
             String E = (String) estado.getSelectedItem();
         
             
@@ -386,7 +373,7 @@ public class Tela_consulta_tarefas extends javax.swing.JInternalFrame {
             task.setDataInicial(datainicial.getText());
             task.setDataFinal(datafinal.getText());
             task.setCliente(C);
-            task.setUsuario(U);
+            //task.setUsuario(U);
             task.setEstado(E);
             task.setObservacoes(observacoes.getText());
             
@@ -399,7 +386,7 @@ public class Tela_consulta_tarefas extends javax.swing.JInternalFrame {
             observacoes.setText("");
             estado.setSelectedIndex(0);
             nomecliente.setSelectedIndex(0);
-            nomeuser.setSelectedIndex(0);
+           
       
             readJTable();
          }
@@ -426,7 +413,7 @@ public class Tela_consulta_tarefas extends javax.swing.JInternalFrame {
              datainicial.setText(Tabela_tarefas.getValueAt(Tabela_tarefas.getSelectedRow(), 2).toString());
              datafinal.setText(Tabela_tarefas.getValueAt(Tabela_tarefas.getSelectedRow(), 3).toString());
              nomecliente.setSelectedItem(Tabela_tarefas.getValueAt(Tabela_tarefas.getSelectedRow(), 4).toString());
-             nomeuser.setSelectedItem(Tabela_tarefas.getValueAt(Tabela_tarefas.getSelectedRow(), 5).toString());
+//             nomeuser.setSelectedItem(Tabela_tarefas.getValueAt(Tabela_tarefas.getSelectedRow(), 5).toString());
              estado.setSelectedItem(Tabela_tarefas.getValueAt(Tabela_tarefas.getSelectedRow(), 6).toString());
              observacoes.setText(Tabela_tarefas.getValueAt(Tabela_tarefas.getSelectedRow(), 7).toString());
           
@@ -442,7 +429,7 @@ public class Tela_consulta_tarefas extends javax.swing.JInternalFrame {
              datainicial.setText(Tabela_tarefas.getValueAt(Tabela_tarefas.getSelectedRow(), 2).toString());
              datafinal.setText(Tabela_tarefas.getValueAt(Tabela_tarefas.getSelectedRow(), 3).toString());
              nomecliente.setSelectedItem(Tabela_tarefas.getValueAt(Tabela_tarefas.getSelectedRow(), 4).toString());
-             nomeuser.setSelectedItem(Tabela_tarefas.getValueAt(Tabela_tarefas.getSelectedRow(), 5).toString());
+            // nomeuser.setSelectedItem(Tabela_tarefas.getValueAt(Tabela_tarefas.getSelectedRow(), 5).toString());
              estado.setSelectedItem(Tabela_tarefas.getValueAt(Tabela_tarefas.getSelectedRow(), 6).toString());
              observacoes.setText(Tabela_tarefas.getValueAt(Tabela_tarefas.getSelectedRow(), 7).toString());
           
@@ -483,7 +470,6 @@ public class Tela_consulta_tarefas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel Label_descricao;
     private javax.swing.JLabel Label_estado;
     private javax.swing.JLabel Label_observacoes;
-    private javax.swing.JLabel Label_tecnico;
     private javax.swing.JPanel Painel_consulta_tarefas;
     private javax.swing.JTable Tabela_tarefas;
     private javax.swing.JTextField codigotarefa;
@@ -495,7 +481,6 @@ public class Tela_consulta_tarefas extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox<Object> nomecliente;
-    private javax.swing.JComboBox<Object> nomeuser;
     private javax.swing.JTextArea observacoes;
     // End of variables declaration//GEN-END:variables
 }
